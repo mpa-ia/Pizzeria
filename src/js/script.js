@@ -141,20 +141,42 @@
         /* START LOOP: for each option in param */
         for (let optionId in param.options){
           const option = param.options[optionId];
+          /* Find all images for option */
+          const selectors = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
+          /* Check if option is selected */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
-          /* START IF: NOT-default option is marked */
+          /* START IF: NOT-default option is selected */
           if (optionSelected && !option.default) {
             /* add its price to total Price */
             totalPrice += option.price;
-          /* END IF: NOT-default option is marked */
+          /* END IF: NOT-default option is selected */
           }
-          /* START IF: default option is NOT marked */
+          /* START IF: default option is NOT selected */
           else if (!optionSelected && option.default) {
             /* substract its price from total Price*/
             totalPrice -= option.price;
-            /* END IF: default option is NOT marked */
+            /* END IF: default option is NOT selected */
           }
-          console.log(totalPrice);
+          /* Choose image depending on selected option */
+          /* START IF: option is selected */
+          if (optionSelected) {
+          /* loop thrugh all selectors */
+            for (let selector of selectors) {
+              /* add class active if statement is true - option is selected*/
+              selector.classList.add(classNames.menuProduct.imageVisible);
+            }
+            //
+          /* END IF: option is selected */
+          }
+          /* START ELSE: option is not selected */
+          else {
+            /* loop thrugh all selectors */
+            for (let selector of selectors) {
+              /* Remove class active if statement is false - option is not selected  */
+              selector.classList.remove(classNames.menuProduct.imageVisible);
+            }
+          /* END ELSE: option is not marked */
+          }
         }
       }
     }
