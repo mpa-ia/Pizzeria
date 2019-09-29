@@ -159,6 +159,7 @@
             totalPrice -= option.price;
             /* END IF: default option is NOT selected */
           }
+          console.log(totalPrice);
           /* Choose image depending on selected option */
           /* START IF: option is selected */
           if (optionSelected) {
@@ -192,10 +193,46 @@
     constructor (element) {
       const thisWidget = this;
 
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
       console.log('Amount Widget: ', thisWidget);
       console.log('constructor arguments: ', element);
+
+      this.initActions();
+    }
+
+    getElements (element) {
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      console.log(thisWidget.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+    setValue (value) {
+      const thisWidget = this;
+      const newValue = parseInt(value);
+
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+    }
+    initActions () {
+      const thisWidget = this;
+      thisWidget.input.addEventListener('change', function () {
+        thisWidget.setValue(thisWidget.input.value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', function () {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function () {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });
     }
   }
+
   const app = {
     initMenu: function () {
       const thisApp = this;
