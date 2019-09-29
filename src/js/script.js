@@ -198,6 +198,7 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
+      thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.setValue(thisWidget.input.value);
       console.log('Amount Widget: ', thisWidget);
       console.log('constructor arguments: ', element);
