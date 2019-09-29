@@ -217,9 +217,10 @@
     setValue (value) {
       const thisWidget = this;
       const newValue = parseInt(value);
-
-      thisWidget.value = newValue;
-      thisWidget.announce();
+      if (value != thisWidget.value && value >= settings.amountWidget.defaultMin && value <= settings.amountWidget.defaultMax){
+        thisWidget.value = newValue;
+        thisWidget.announce();
+      }
       thisWidget.input.value = thisWidget.value;
     }
     initActions () {
