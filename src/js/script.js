@@ -132,20 +132,20 @@
     processOrder() {
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('fomr Data: ', formData);
       /* declare price variable */
       let totalPrice = thisProduct.data.price;
       /* Find all parameters of this product */
       const params = thisProduct.data.params;
       /* START LOOP: for each param of params */
       for (let paramId in params){
+        /* Find parameter */
         const param = params[paramId];
         /* START LOOP: for each option in param */
         for (let optionId in param.options){
+          /* Find option of parameter */
           const option = param.options[optionId];
           /* Find all images for option */
-          const selectors = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
-          console.log(selectors);
+          const selector = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
           /* Check if option is selected */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
           /* START IF: NOT-default option is selected */
@@ -161,23 +161,26 @@
             /* END IF: default option is NOT selected */
           }
           console.log(totalPrice);
-          /* Choose image depending on selected option */
+
+          /* [FUNCTIONALITY] Choose image depending on selected option */
+
           /* START IF: option is selected */
           if (optionSelected) {
-          /* loop thrugh all selectors */
-            for (let selector of selectors) {
-              /* add class active if statement is true - option is selected*/
+            /* START IF: selector is not null */
+            if (selector != null ) {
+              /* add class active if statement is true - option is selected */
               selector.classList.add(classNames.menuProduct.imageVisible);
+              /* END IF: selector is not null */
             }
-            //
           /* END IF: option is selected */
           }
           /* START ELSE: option is not selected */
           else {
-            /* loop thrugh all selectors */
-            for (let selector of selectors) {
+            /* START IF: selector is not null */
+            if (selector != null) {
               /* Remove class active if statement is false - option is not selected  */
               selector.classList.remove(classNames.menuProduct.imageVisible);
+              /* END IF: selector is not null */
             }
           /* END ELSE: option is not marked */
           }
