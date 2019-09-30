@@ -137,14 +137,17 @@
       console.log('fomr Data: ', formData);
       /* declare price variable */
       let totalPrice = thisProduct.data.price;
+      /* Find all parameters */
+      const params = thisProduct.data.params;
       /* START LOOP: for each param of params */
-      for (let paramId in thisProduct.data.params){
-        const param = thisProduct.data.params[paramId];
+      for (let paramId in params){
+        const param = params[paramId];
         /* START LOOP: for each option in param */
         for (let optionId in param.options){
           const option = param.options[optionId];
           /* Find all images for option */
           const selectors = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
+          console.log(selectors);
           /* Check if option is selected */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
           /* START IF: NOT-default option is selected */
