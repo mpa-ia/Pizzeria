@@ -90,14 +90,12 @@
     }
     initAccordion () {
       const thisProduct = this;
-      /* find the clickable trigger (the element that should react to clicking) */
-
       /* START: click event listener to trigger */
       thisProduct.accordionTrigger.addEventListener('click', function () {
         /* prevent default action for event */
         event.preventDefault();
         /* toggle active class on this element*/
-        thisProduct.element.classList.toggle('active');
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
         /* find all active products */
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
         /* START LOOP: for each active product: */
@@ -105,7 +103,7 @@
           /* START: if the active product isn't the element of thisProduct */
           if (activeProduct != thisProduct.element) {
             /* remove class active for this product */
-            activeProduct.classList.remove('active');
+            activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
           /* END: if the active product isn't the element of thisProduct */
           }
         /* END LOOP: for each active product:*/
@@ -137,7 +135,7 @@
       console.log('fomr Data: ', formData);
       /* declare price variable */
       let totalPrice = thisProduct.data.price;
-      /* Find all parameters */
+      /* Find all parameters of this product */
       const params = thisProduct.data.params;
       /* START LOOP: for each param of params */
       for (let paramId in params){
