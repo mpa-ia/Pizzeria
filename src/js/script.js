@@ -167,7 +167,7 @@
           /* START IF: option is selected */
           if (optionSelected) {
             /* START IF: selector is not null */
-            if (selector != null ) {
+            if (selector) {
               /* add class active if statement is true - option is selected */
               selector.classList.add(classNames.menuProduct.imageVisible);
               /* END IF: selector is not null */
@@ -177,7 +177,7 @@
           /* START ELSE: option is not selected */
           else {
             /* START IF: selector is not null */
-            if (selector != null) {
+            if (selector) {
               /* Remove class active if statement is false - option is not selected  */
               selector.classList.remove(classNames.menuProduct.imageVisible);
               /* END IF: selector is not null */
