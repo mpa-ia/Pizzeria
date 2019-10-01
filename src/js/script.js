@@ -132,6 +132,7 @@
     processOrder() {
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData: ', formData);
       /* declare price variable */
       let totalPrice = thisProduct.data.price;
       /* Find all parameters of this product */
@@ -161,7 +162,7 @@
             /* END IF: default option is NOT selected */
           }
           console.log(totalPrice);
-
+          thisProduct.priceElem = totalPrice;
           /* [FUNCTIONALITY] Choose image depending on selected option */
 
           /* START IF: option is selected */
