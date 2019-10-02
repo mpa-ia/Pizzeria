@@ -111,6 +111,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      console.log(thisProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
@@ -161,7 +162,8 @@
       const formData = utils.serializeFormToObject(thisProduct.form);
       // console.log('formData: ', formData);
       /* declare price variable */
-      let totalPrice = thisProduct.data.price;
+      let price = thisProduct.data.price;
+      console.log(price);
       /* Find all parameters of this product */
       const params = thisProduct.data.params;
       /* START LOOP: for each param of params */
@@ -178,18 +180,18 @@
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
           /* START IF: NOT-default option is selected */
           if (optionSelected && !option.default) {
-            /* add its price to total Price */
-            totalPrice += option.price;
+            /* add option price to product price */
+            price += option.price;
           /* END IF: NOT-default option is selected */
           }
           /* START IF: default option is NOT selected */
           else if (!optionSelected && option.default) {
-            /* substract its price from total Price*/
-            totalPrice -= option.price;
+            /* substract option price from product price*/
+            price -= option.price;
             /* END IF: default option is NOT selected */
           }
-          // console.log(totalPrice);
-          thisProduct.priceElem = totalPrice;
+          thisProduct.priceSingle = price;
+          console.log(thisProduct.priceSingle);
           /* [FUNCTIONALITY] Choose image depending on selected option */
 
           /* START IF: option is selected */
@@ -210,11 +212,14 @@
               selector.classList.remove(classNames.menuProduct.imageVisible);
               /* END IF: selector is not null */
             }
-          /* END ELSE: option is not marked */
+          /* END ELSE: option is not selected */
           }
         }
-        totalPrice *= thisProduct.amountWidget.value;
       }
+      /* multiply price by amount */
+      thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
+      /* set the contents of thisProduct.priceElem to be the value of variable price */
+      thisProduct.priceElem.innerHTML = thisProduct.price;
     }
     initAmountWidget () {
       const thisProduct = this;
