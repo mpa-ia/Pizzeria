@@ -150,7 +150,7 @@
           thisProduct.processOrder();
         });
       }
-      thisProduct.cartButton.addEventListener('click', function (){
+      thisProduct.cartButton.addEventListener('click', function () {
         event.preventDefault();
         thisProduct.processOrder();
       });
@@ -188,7 +188,7 @@
             /* END IF: default option is NOT selected */
           }
           // console.log(totalPrice);
-          thisProduct.priceElem = totalPrice;\
+          thisProduct.priceElem = totalPrice;
           /* [FUNCTIONALITY] Choose image depending on selected option */
 
           /* START IF: option is selected */
@@ -283,7 +283,7 @@
       thisCart.getElements(element);
       console.log('new Cart: ', thisCart);
     }
-    getElements (elements) {
+    getElements (element) {
       const thisCart = this;
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
@@ -296,6 +296,11 @@
       for (let productData in thisApp.data.products) {
         new Product (productData, thisApp.data.products[productData]);
       }
+    },
+    initCart: function () {
+      const thisApp = this;
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart (cartElem);
     },
     initData: function () {
       const thisApp = this;
@@ -312,6 +317,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
     },
   };
 
