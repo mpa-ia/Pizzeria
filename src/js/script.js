@@ -161,6 +161,8 @@
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form);
       // console.log('formData: ', formData);
+      /* [NEW] create object to store chosen option */
+      thisProduct.params = {};
       /* declare price variable */
       let price = thisProduct.data.price;
       console.log(price);
@@ -196,6 +198,12 @@
 
           /* START IF: option is selected */
           if (optionSelected) {
+            if (!thisProduct.params[paramId]) {
+              thisProduct.params[paramId] = {
+                label: param.label,
+                options: {},
+              };
+            }
             /* START IF: selector is not null */
             if (selector) {
               /* add class active if statement is true - option is selected */
@@ -220,6 +228,7 @@
       thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem.innerHTML = thisProduct.price;
+      console.log(thisProduct.params);
     }
     initAmountWidget () {
       const thisProduct = this;
@@ -231,6 +240,8 @@
     }
     addToCart () {
       const thisProduct = this;
+      thisProduct.name = thisProduct.data.name;
+      thisProduct.amount = thisProduct.amountWidget.value;
       app.cart.add(thisProduct);
     }
   }
