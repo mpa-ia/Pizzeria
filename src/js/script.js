@@ -310,7 +310,11 @@
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = document.querySelector(select.cart.productList);
-      console.log(thisCart.dom.productList);
+
+      thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
+      for (let key of thisCart.renderTotalsKeys){
+        thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
+      }
     }
     initActions () {
       const thisCart = this;
@@ -347,6 +351,13 @@
       }
       /* add property totalPrice, add deliveryFee to subtotalPrice */
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      for (let key of thisCart.renderTotalsKeys) {
+        for (let elem of thisCart.dom[key]) {
+          console.log(thisCart.dom[key]);
+          console.log('elem', elem);
+          elem.innerHTML = thisCart[key];
+        }
+      }
     }
   }
   class CartProduct {
