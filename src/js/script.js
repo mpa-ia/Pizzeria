@@ -164,8 +164,6 @@
       thisProduct.params = {};
       /* declare price variable */
       let price = thisProduct.data.price;
-      console.log(thisProduct.data.name);
-      console.log(price);
       /* Find all parameters of this product */
       const params = thisProduct.data.params;
       /* START LOOP: for each param of params */
@@ -301,6 +299,7 @@
       const thisCart = this;
 
       thisCart.products = [];
+      thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
       thisCart.getElements(element);
       thisCart.initActions();
       console.log('new Cart: ', thisCart);
@@ -331,6 +330,23 @@
 
       thisCart.products.push(new CartProduct (menuProduct, generatedDOM));
       console.log('thisCart.products', thisCart.products);
+      thisCart.update();
+    }
+    update () {
+      const thisCart = this;
+      /* declare totalNumber & subtotalPrice properties - they will sum up the amount and whole price of all chosen products */
+      thisCart.totalNumber = 0;
+      thisCart.subtotalPrice = 0;
+      /* START LOOP: for each product of chosen products array */
+      for (let product of thisCart.products) {
+        /* add product price to subtotalPrice */
+        thisCart.subtotalPrice += product.price;
+        /* add product amount to totalNumber */
+        thisCart.totalNumber += product.amount;
+      /* END LOOP: for each product of chosen products array */
+      }
+      /* add property totalPrice, add deliveryFee to subtotalPrice */
+      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
     }
   }
   class CartProduct {
