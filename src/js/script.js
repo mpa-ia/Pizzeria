@@ -404,8 +404,6 @@
         products: [],
       };
       for (let product of thisCart.products) {
-        console.log('thisCart.products: ', thisCart.products);
-        console.log('product: ', product);
         const data = product.getData();
         payload.products.push(data);
       }
@@ -421,6 +419,16 @@
         .then(parsedResponse => {
           console.log('parsedResponse: ', parsedResponse);
         });
+      thisCart.clearCart();
+    }
+    clearCart () {
+      const thisCart = this;
+      /* clear products array */
+      thisCart.products.splice(0, thisCart.products.length);
+      /* remove DOM elements from  productList */
+      thisCart.dom.productList.innerHTML = '';
+      /* update sums */
+      thisCart.update();
     }
   }
   class CartProduct {
