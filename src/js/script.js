@@ -206,6 +206,7 @@
                 options: {},
               };
             }
+            thisProduct.params[paramId].options[optionId] = option.label;
             /* START IF: selector is not null */
             if (selector) {
               /* add class active if statement is true - option is selected */
@@ -406,7 +407,6 @@
         console.log('thisCart.products: ', thisCart.products);
         console.log('product: ', product);
         const data = product.getData();
-        console.log(data);
         payload.products.push(data);
       }
       const options = {
