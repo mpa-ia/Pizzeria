@@ -429,6 +429,8 @@
       thisCart.dom.productList.innerHTML = '';
       /* update sums */
       thisCart.update();
+      thisCart.dom.phone.value = '';
+      thisCart.dom.address.value = '';
     }
   }
   class CartProduct {
