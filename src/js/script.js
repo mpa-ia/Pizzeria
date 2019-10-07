@@ -342,7 +342,7 @@
       });
       thisCart.dom.form.addEventListener('submit', function () {
         event.preventDefault();
-        /* TO DO: Form inputs validation */
+        /* TO DO: Form inputs validation
         const regExpPhone = /\d{9}/;
         const regExpAddress = /^[A-z]+,?\s\d+[A-z]?(\/\d+[A-z]?)?/;
         if (thisCart.products.length == 0) {
@@ -354,7 +354,8 @@
         } else {
           thisCart.sendOrder();
         }
-
+        */
+        thisCart.sendOrder();
       });
     }
     add (menuProduct) {
@@ -402,6 +403,7 @@
       cartProduct.dom.wrapper.remove();
       /* update all sums in cart */
       thisCart.update();
+      /* */
     }
     sendOrder () {
       const thisCart = this;
@@ -418,6 +420,7 @@
       };
       for (let product of thisCart.products) {
         const data = product.getData();
+        console.log(data);
         payload.products.push(data);
       }
       const options = {
@@ -432,20 +435,22 @@
         .then(parsedResponse => {
           console.log('parsedResponse: ', parsedResponse);
         });
-      thisCart.clearCart();
+      // thisCart.clearCart();
     }
+
     clearCart () {
       const thisCart = this;
-      /* clear products array */
+
       thisCart.products.splice(0, thisCart.products.length);
-      /* remove DOM elements from  productList */
+
       thisCart.dom.productList.remove();
-      /* update sums */
+
       thisCart.update();
-      /* clear form inputs */
+
       thisCart.dom.phone.value = '';
       thisCart.dom.address.value = '';
     }
+
   }
   class CartProduct {
     constructor (menuProduct, element) {
