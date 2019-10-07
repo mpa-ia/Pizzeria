@@ -70,6 +70,7 @@
     },
     cart: {
       defaultDeliveryFee: 20,
+      empty: '',
     },
     db: {
       url: '//localhost:3131',
@@ -341,7 +342,19 @@
       });
       thisCart.dom.form.addEventListener('submit', function () {
         event.preventDefault();
-        thisCart.sendOrder();
+        /* TO DO: Form inputs validation */
+        const regExpPhone = /\d{9}/;
+        const regExpAddress = /^[A-z]+,?\s\d+[A-z]?(\/\d+[A-z]?)?/;
+        if (thisCart.products.length == 0) {
+          window.alert('Choose product');
+        } else if (thisCart.dom.phone.value == regExpPhone) {
+          window.alert('Insert correct telephone number');
+        } else if (thisCart.dom.address.value != regExpAddress) {
+          window.alert('Insert correct address');
+        } else {
+          thisCart.sendOrder();
+        }
+
       });
     }
     add (menuProduct) {
@@ -426,9 +439,10 @@
       /* clear products array */
       thisCart.products.splice(0, thisCart.products.length);
       /* remove DOM elements from  productList */
-      thisCart.dom.productList.innerHTML = '';
+      thisCart.dom.productList.remove();
       /* update sums */
       thisCart.update();
+      /* clear form inputs */
       thisCart.dom.phone.value = '';
       thisCart.dom.address.value = '';
     }
