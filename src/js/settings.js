@@ -1,3 +1,5 @@
+/* global Handlebars */
+
 export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
@@ -65,13 +67,12 @@ export const settings = {
   },
   cart: {
     defaultDeliveryFee: 20,
-    empty: '',
   },
   db: {
     url: '//localhost:3131',
     product: 'product',
     order: 'order',
-  }
+  },
 };
 
 export const templates = {
