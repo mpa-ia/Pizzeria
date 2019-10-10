@@ -42,13 +42,14 @@ class Cart {
     thisCart.dom.form.addEventListener('submit', function () {
       event.preventDefault();
       /* TO DO: Form inputs validation */
-      const regExpPhone = /\d{9}/;
-      const regExpAddress = /^[A-z]+,?\s\d+[A-z]?(\/\d+[A-z]?)?/;
+      // const regExpPhone = /\d{9}/;
+      const regExpAddress = /[A-z]+,?\s\d+[A-z]?(\/\d+[A-z]?)?/;
       if (thisCart.products.length == 0) {
         window.alert('Choose product');
-      } else if (thisCart.dom.phone.value == regExpPhone) {
-        window.alert('Insert correct telephone number');
-      } else if (thisCart.dom.address.value != regExpAddress) {
+      } // else if (thisCart.dom.phone.value.test(regExpPh)) {
+      // window.alert('Insert correct telephone number');
+      //}
+      else if (thisCart.dom.address.value != regExpAddress) {
         window.alert('Insert correct address');
       } else {
         thisCart.sendOrder();
@@ -83,8 +84,15 @@ class Cart {
       thisCart.totalNumber += product.amount;
     /* END LOOP: for each product of chosen products array */
     }
+    if (thisCart.products.length == 0) {
+      thisCart.deliveryFee = 0;
+      thisCart.totalPrice = 0;
+    } else {
+      thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
+      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+    }
     /* add property totalPrice, add deliveryFee to subtotalPrice */
-    thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+
     for (let key of thisCart.renderTotalsKeys) {
       for (let elem of thisCart.dom[key]) {
         elem.innerHTML = thisCart[key];
@@ -96,7 +104,7 @@ class Cart {
     /* find index of cartProduct in thisCard.products array */
     const index = thisCart.products.indexOf(cartProduct);
     /* remove element with given index */
-    thisCart.products.splice(index);
+    thisCart.products.splice(index, 1);
     /* remove DOM element of cartProduct */
     cartProduct.dom.wrapper.remove();
     /* update all sums in cart */

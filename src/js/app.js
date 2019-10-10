@@ -47,7 +47,8 @@ const app = {
     for (let link of thisApp.navLinks) {
       link.classList.toggle(
         classNames.nav.active,
-        link.getAttribute('href') == '#' + pageId);
+        link.getAttribute('href') == '#' + pageId
+      );
     }
   },
   initMenu: function () {
