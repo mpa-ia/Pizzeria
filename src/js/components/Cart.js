@@ -42,19 +42,18 @@ class Cart {
     thisCart.dom.form.addEventListener('submit', function () {
       event.preventDefault();
       /* TO DO: Form inputs validation */
-      // const regExpPhone = /\d{9}/;
-      const regExpAddress = /[A-z]+,?\s\d+[A-z]?(\/\d+[A-z]?)?/;
+      const regExpPhone = new RegExp ('\\d{9}');
+      const regExpAddress = new RegExp ('[A-z]+,?\\s\\d+[A-z]?(\\/\\d+[A-z]?)?');
       if (thisCart.products.length == 0) {
         window.alert('Choose product');
-      } // else if (thisCart.dom.phone.value.test(regExpPh)) {
-      // window.alert('Insert correct telephone number');
-      //}
-      else if (thisCart.dom.address.value != regExpAddress) {
+      } else if (regExpPhone.test(thisCart.dom.phone.value)) {
+        window.alert('Insert correct telephone number');
+      }
+      else if (regExpAddress.test(thisCart.dom.address.value)) {
         window.alert('Insert correct address');
       } else {
         thisCart.sendOrder();
       }
-
     });
   }
   add (menuProduct) {
@@ -145,8 +144,8 @@ class Cart {
     const thisCart = this;
     /* clear products array */
     thisCart.products.splice(0, thisCart.products.length);
-    /* remove DOM elements from  productList */
-    thisCart.dom.productList.remove();
+    /* remove DOM elements from productList */
+    thisCart.dom.productList.children.remove(); // tutaj jest błąd - usuwam wrapper, a nie poszczególne elementy, dlatego nie działa mi dodawanie to koszyka po złożeniu zamówienia
     /* update sums */
     thisCart.update();
     /* clear form inputs */
