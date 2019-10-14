@@ -143,9 +143,12 @@ class Cart {
   clearCart () {
     const thisCart = this;
     /* clear products array */
-    thisCart.products.splice(0, thisCart.products.length);
+    thisCart.products = [];
     /* remove DOM elements from productList */
-    thisCart.dom.productList.children.remove(); // tutaj jest błąd - usuwam wrapper, a nie poszczególne elementy, dlatego nie działa mi dodawanie to koszyka po złożeniu zamówienia
+    while(thisCart.dom.productList.hasChildNodes()) {
+      thisCart.dom.productList.removeChild(thisCart.dom.productList.firstChild);
+    }
+
     /* update sums */
     thisCart.update();
     /* clear form inputs */
