@@ -31,7 +31,7 @@ class BaseWidget {
   }
   renderValue () {
     const thisWidget = this;
-    thisWidget.dom.wrapper.innerHTML = thisWidget.correctValue;
+    thisWidget.dom.wrapper.innerHTML = thisWidget.value;
   }
   announce (){
     const thisWidget = this;

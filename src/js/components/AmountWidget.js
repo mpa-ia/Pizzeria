@@ -9,7 +9,6 @@ class AmountWidget extends BaseWidget {
     thisWidget.getElements(element);
 
     this.initActions();
-    console.log('AmountWidget: ', thisWidget);
   }
 
   getElements () {

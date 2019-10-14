@@ -16,9 +16,7 @@ class DatePicker extends BaseWidget {
     const thisWidget = this;
     thisWidget.minDate = new Date(thisWidget.value);
     const minDateStr = utils.dateToStr(thisWidget.minDate);
-    console.log(settings.datePicker.maxDaysInFuture);
     thisWidget.maxDate = utils.addDays(minDateStr, settings.datePicker.maxDaysInFuture);
-    console.log(thisWidget.maxDate);
     // initiate plugin flatpickr
     const flatpickrOptions = {
       defaultDate: thisWidget.minDate,
@@ -34,7 +32,6 @@ class DatePicker extends BaseWidget {
         firstDayOfWeek: 1, // start week on Monday
       },
     };
-    console.log(flatpickrOptions);
     flatpickr(thisWidget.dom.input, flatpickrOptions);
   }
   parseValue  (value) {

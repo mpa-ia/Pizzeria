@@ -151,7 +151,6 @@ class Product {
     thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
     /* set the contents of thisProduct.priceElem to be the value of variable price */
     thisProduct.priceElem.innerHTML = thisProduct.price;
-    console.log(thisProduct.params);
   }
   initAmountWidget () {
     const thisProduct = this;
