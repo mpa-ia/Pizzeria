@@ -110,7 +110,6 @@ class Booking {
       }
 
     }
-
   }
   updateDOM () {
     const thisBooking = this;
@@ -146,7 +145,6 @@ class Booking {
   }
   render (element) {
     const thisBooking = this;
-    console.log(thisBooking);
     const generatedHTML = templates.bookingWidget();
 
     thisBooking.dom = {};
@@ -174,6 +172,13 @@ class Booking {
     thisBooking.dom.wrapper.addEventListener('updated', function () {
       thisBooking.updateDOM();
     });
+    for (let table of thisBooking.dom.tables) {
+      table.addEventListener('click', function () {
+        if (!table.classList.contains(classNames.booking.tableBooked)) {
+          table.classList.add(classNames.booking.tableSelected);
+        }
+      });
+    }
   }
 }
 export default Booking;
