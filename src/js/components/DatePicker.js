@@ -10,6 +10,8 @@ class DatePicker extends BaseWidget {
     thisWidget.dom = {};
     thisWidget.dom.wrapper  = wrapper;
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.datePicker.input);
+    console.log(thisWidget.dom.input);
+
     thisWidget.initPlugin();
   }
   initPlugin () {
@@ -31,8 +33,15 @@ class DatePicker extends BaseWidget {
       locale: {
         firstDayOfWeek: 1, // start week on Monday
       },
+      onChange: [
+        function (selectedDates, dateStr, instance) {
+          thisWidget.announce();
+
+        }
+      ],
     };
     flatpickr(thisWidget.dom.input, flatpickrOptions);
+
   }
   parseValue  (value) {
     return value;

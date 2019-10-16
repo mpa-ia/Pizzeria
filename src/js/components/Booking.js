@@ -115,6 +115,7 @@ class Booking {
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
+    console.log(thisBooking.date, typeof thisBooking.date);
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
     let allAvailable = false;
@@ -170,6 +171,9 @@ class Booking {
     console.log(thisBooking.hourPicker);
 
     thisBooking.dom.wrapper.addEventListener('updated', function () {
+      for (let table of thisBooking.dom.tables) {
+        table.classList.remove(classNames.booking.tableSelected);
+      }
       thisBooking.updateDOM();
     });
     for (let table of thisBooking.dom.tables) {
