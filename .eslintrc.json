@@ -28,7 +28,9 @@
         ],
         "no-console": [
             "off"
-        ]
+        ],
+        "no-unused-vars": [
+          "error", { "args": "none" }]
     },
     "globals": {
       "flatpickr": false,
