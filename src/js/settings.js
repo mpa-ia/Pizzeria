@@ -60,9 +60,12 @@ export const select = {
     remove: '[href="#remove"]',
   },
   booking: {
+    form: '.booking-form',
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
+    starter: '[name="starter"]',
+    tableSelected: '.selected',
   },
   nav: {
     links: '.main-nav a',
