@@ -68,7 +68,7 @@ export const select = {
     tableSelected: '.selected',
   },
   nav: {
-    links: '.main-nav a',
+    links: '.link-box a',
   },
 };
 
