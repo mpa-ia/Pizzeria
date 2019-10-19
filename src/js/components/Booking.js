@@ -234,14 +234,13 @@ class Booking {
       body: JSON.stringify(payload),
     };
 
-    console.log(options, url);
-  /*  fetch(url, options)
+
+    fetch(url, options)
       .then(response => response.json())
       .then(parsedResponse => {
         console.log('parsedResponse: ', parsedResponse);
-      }); */
+      });
     thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
-    console.log('booked after sending: ', thisBooking.booked);
   }
 
 }
