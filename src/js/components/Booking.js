@@ -1,4 +1,4 @@
-import { templates, select, settings,classNames} from '../settings.js';
+import { templates, select, settings, classNames} from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
@@ -41,8 +41,6 @@ class Booking {
       eventsRepeat:   settings.db.url + '/' + settings.db.event
                                       + '?' + params.eventsRepeat.join('&'),
     };
-    // console.log('getData params: ', params);
-    // console.log('getData urls: ', urls);
 
     Promise.all([
       fetch(urls.booking),
@@ -82,7 +80,6 @@ class Booking {
       if (item.repeat == 'daily') {
         for (let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1))
           thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
-        console.log(item.hour, typeof item.hour);
       }
     }
     thisBooking.updateDOM();
@@ -98,17 +95,18 @@ class Booking {
     for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5) {
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
-
+        thisBooking.booked[date][hourBlock].push(table);
+      } else {
         thisBooking.booked[date][hourBlock].push(table);
       }
-
     }
   }
   updateDOM () {
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
-    thisBooking.hour = utils.numberToHour(thisBooking.hourPicker.value);
+    thisBooking.hour = thisBooking.hourPicker.value;
+
     let allAvailable = false;
 
     if (
@@ -170,19 +168,38 @@ class Booking {
 
     for (let table of thisBooking.dom.tables) {
       table.addEventListener('click', function () {
+
         if (!table.classList.contains(classNames.booking.tableBooked)) {
-          const selectedTables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tableSelected);
-          for (let selectedTable of selectedTables) {
-            selectedTable.classList.remove(classNames.booking.tableSelected);
-          }
+
           table.classList.toggle(classNames.booking.tableSelected);
+          const selectedTables = thisBooking.dom.wrapper.querySelectorAll(select.all.tablesSelected);
+
+          for (let selectedTable of selectedTables) {
+            if(selectedTable != this) {
+              selectedTable.classList.remove(classNames.booking.tableSelected);
+            }
+          }
         }
+
       });
     }
     thisBooking.dom.form.addEventListener('submit', function (event) {
       event.preventDefault();
+
       /* Validation form */
-      thisBooking.sendOrder();
+      let tableSelected = false;
+
+      for (let table of thisBooking.dom.tables) {
+        if (table.classList.contains(classNames.booking.tableSelected)) {
+          tableSelected = true;
+        }
+      }
+
+      if (tableSelected) {
+        thisBooking.sendOrder();
+      } else {
+        window.alert('Choose table');
+      }
     });
   }
   sendOrder () {
@@ -192,7 +209,7 @@ class Booking {
 
     const payload = {
       date: thisBooking.date,
-      hour:thisBooking.hour,
+      hour: utils.numberToHour(thisBooking.hour),
       table: 0,
       repeat: false,
       duration:thisBooking.hoursAmount.value,
@@ -204,9 +221,9 @@ class Booking {
         payload.starters.push(starter.value);
       }
     }
-/*     const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
+    const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
     const tableId = selectedTable.getAttribute(settings.booking.tableIdAttribute);
-    payload.table = tableId; */
+    payload.table = parseInt(tableId);
 
     console.log(payload);
     const options = {
@@ -223,7 +240,8 @@ class Booking {
       .then(parsedResponse => {
         console.log('parsedResponse: ', parsedResponse);
       }); */
-    /// thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+    thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+    console.log('booked after sending: ', thisBooking.booked);
   }
 
 }
