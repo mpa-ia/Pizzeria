@@ -148,9 +148,7 @@ class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.hourPicker.wrapper);
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-    console.log(thisBooking.dom.tables);
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starter);
-    console.log(thisBooking.dom.starters);
   }
   initWidgets () {
     const thisBooking = this;
@@ -188,19 +186,50 @@ class Booking {
 
       /* Validation form */
       let tableSelected = false;
-
+      let tableId = 0;
       for (let table of thisBooking.dom.tables) {
         if (table.classList.contains(classNames.booking.tableSelected)) {
           tableSelected = true;
+          tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
         }
       }
 
       if (tableSelected) {
-        thisBooking.sendOrder();
+        thisBooking.checkIfFree(thisBooking.date, thisBooking.hour, thisBooking.hoursAmount.value, tableId);
+        // thisBooking.sendOrder();
       } else {
         window.alert('Choose table');
       }
     });
+  }
+  checkIfFree (date, hour, duration, table) {
+    const thisBooking = this;
+
+    let freeTable = true;
+    let countLoopExecution = 0;
+
+    for (let hourBlock = hour; hourBlock < hour + duration; hourBlock += 0.5) {
+      console.log(thisBooking.booked);
+      console.log(thisBooking.booked[date][hourBlock].includes(table));
+      if (typeof thisBooking.booked[date][hourBlock] == 'undefined'
+          ||
+          !thisBooking.booked[date][hourBlock].includes(table)) {
+        console.log('slot is Free');
+        countLoopExecution++;
+      }
+      else if (typeof thisBooking.booked[date][hourBlock] != 'undefined' &&
+                thisBooking.booked[date][hourBlock].includes(table)) {
+        freeTable = false;
+        window.alert(hourBlock + ' Slot is not free');
+        break;
+      }
+    }
+
+    if (!freeTable) {
+      thisBooking.hoursAmount.value = thisBooking.hoursAmount.value - duration + countLoopExecution;
+    } else {
+      thisBooking.sendOrder();
+    }
   }
   sendOrder () {
     const thisBooking = this;
@@ -233,13 +262,13 @@ class Booking {
       },
       body: JSON.stringify(payload),
     };
-
-
+    console.log(options, url);
+    /*
     fetch(url, options)
       .then(response => response.json())
       .then(parsedResponse => {
         console.log('parsedResponse: ', parsedResponse);
-      });
+      }); */
     thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
   }
 
