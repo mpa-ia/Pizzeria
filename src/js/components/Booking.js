@@ -207,7 +207,7 @@ class Booking {
     const thisBooking = this;
 
     let freeTable = true;
-    let countLoopExecution = 0;
+    let availableHoursAmount = 0;
 
     thisBooking.hourPicker.closed = settings.hours.close;
 
@@ -216,7 +216,7 @@ class Booking {
           ||
           !thisBooking.booked[date][hourBlock].includes(table)) {
         console.log('slot is Free');
-        countLoopExecution+=0.5;
+        availableHoursAmount+=0.5;
       }
       else if (typeof thisBooking.booked[date][hourBlock] != 'undefined' &&
                 thisBooking.booked[date][hourBlock].includes(table)) {
@@ -227,7 +227,7 @@ class Booking {
     }
 
     if (!freeTable) {
-      thisBooking.hoursAmount.value = thisBooking.hoursAmount.value - duration + countLoopExecution;
+      thisBooking.hoursAmount.value = thisBooking.hoursAmount.value - duration + availableHoursAmount;
     } else if (parseFloat(hour) + parseFloat(duration) > parseFloat(thisBooking.hourPicker.closed)) {
       window.alert('You can book a table only for ' + (thisBooking.hourPicker.closed - parseFloat(hour)) + ' hours');
     } else {
