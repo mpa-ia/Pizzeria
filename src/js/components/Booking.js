@@ -209,7 +209,7 @@ class Booking {
     let freeTable = true;
     let countLoopExecution = 0;
 
-    for (let hourBlock = hour; hourBlock < hour + duration; hourBlock += 0.5) {
+    for (let hourBlock = hour; hourBlock < parseFloat(hour) + parseFloat(duration); hourBlock += 0.5) {
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined'
           ||
           !thisBooking.booked[date][hourBlock].includes(table)) {
