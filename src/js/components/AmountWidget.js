@@ -2,7 +2,7 @@ import {settings, select} from '../settings.js';
 import BaseWidget from './BaseWidget.js';
 
 class AmountWidget extends BaseWidget {
-  constructor (element, isHourWidget) {
+  constructor (element, isHourWidget = false) {
     super(element, settings.amountWidget.defaultValue);
     const thisWidget = this;
     thisWidget.isHourWidget = isHourWidget;
