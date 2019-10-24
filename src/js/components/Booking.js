@@ -106,6 +106,7 @@ class Booking {
 
     thisBooking.date = thisBooking.datePicker.value;
     console.log(thisBooking.date);
+    console.log(thisBooking.datePicker.value);
     thisBooking.hour = thisBooking.hourPicker.value;
 
     let allAvailable = false;
@@ -209,6 +210,8 @@ class Booking {
     let freeTable = true;
     let countLoopExecution = 0;
 
+    thisBooking.hourPicker.closed = settings.hours.close;
+
     for (let hourBlock = hour; hourBlock < parseFloat(hour) + parseFloat(duration); hourBlock += 0.5) {
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined'
           ||
@@ -219,20 +222,19 @@ class Booking {
       else if (typeof thisBooking.booked[date][hourBlock] != 'undefined' &&
                 thisBooking.booked[date][hourBlock].includes(table)) {
         freeTable = false;
-        window.alert(hourBlock + ' Slot is not free');
+        window.alert('You can book this table only for ' + (parseFloat(hourBlock) - parseFloat(hour)) + ' hours, later it is not available');
         break;
       }
     }
-    /*
-    thisBooking.hourPicker.closed = settings.hours.close;
-    console.log(thisBooking.hourPicker.closed); */
-
 
     if (!freeTable) {
       thisBooking.hoursAmount.value = thisBooking.hoursAmount.value - duration + countLoopExecution;
+    } else if (parseFloat(hour) + parseFloat(duration) > parseFloat(thisBooking.hourPicker.closed)) {
+      window.alert('You can book a table only for ' + (thisBooking.hourPicker.closed - parseFloat(hour)) + ' hours');
     } else {
       thisBooking.sendOrder();
     }
+
   }
   sendOrder () {
     const thisBooking = this;
