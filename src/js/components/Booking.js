@@ -158,7 +158,7 @@ class Booking {
     thisBooking.hoursAmount = new AmountWidget (thisBooking.dom.hoursAmount, true);
     thisBooking.datePicker = new DatePicker (thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker (thisBooking.dom.hourPicker);
-    console.log(thisBooking.hoursAmount);
+
     thisBooking.dom.wrapper.addEventListener('updated', function () {
       for (let table of thisBooking.dom.tables) {
         table.classList.remove(classNames.booking.tableSelected);
@@ -198,7 +198,6 @@ class Booking {
 
       if (tableSelected) {
         thisBooking.checkIfFree(thisBooking.date, thisBooking.hour, thisBooking.hoursAmount.value, tableId);
-        // thisBooking.sendOrder();
       } else {
         window.alert('Choose table');
       }
@@ -268,12 +267,12 @@ class Booking {
       body: JSON.stringify(payload),
     };
     console.log(options, url);
-    /*
+
     fetch(url, options)
       .then(response => response.json())
       .then(parsedResponse => {
         console.log('parsedResponse: ', parsedResponse);
-      }); */
+      });
     thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
   }
 
