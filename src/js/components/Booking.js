@@ -105,6 +105,7 @@ class Booking {
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
+    console.log(thisBooking.date);
     thisBooking.hour = thisBooking.hourPicker.value;
 
     let allAvailable = false;
@@ -152,11 +153,11 @@ class Booking {
   }
   initWidgets () {
     const thisBooking = this;
-    thisBooking.peopleAmount = new AmountWidget (thisBooking.dom.peopleAmount);
-    thisBooking.hoursAmount = new AmountWidget (thisBooking.dom.hoursAmount);
+    thisBooking.peopleAmount = new AmountWidget (thisBooking.dom.peopleAmount, false);
+    thisBooking.hoursAmount = new AmountWidget (thisBooking.dom.hoursAmount, true);
     thisBooking.datePicker = new DatePicker (thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker (thisBooking.dom.hourPicker);
-
+    console.log(thisBooking.hoursAmount);
     thisBooking.dom.wrapper.addEventListener('updated', function () {
       for (let table of thisBooking.dom.tables) {
         table.classList.remove(classNames.booking.tableSelected);
@@ -209,13 +210,11 @@ class Booking {
     let countLoopExecution = 0;
 
     for (let hourBlock = hour; hourBlock < hour + duration; hourBlock += 0.5) {
-      console.log(thisBooking.booked);
-      console.log(thisBooking.booked[date][hourBlock].includes(table));
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined'
           ||
           !thisBooking.booked[date][hourBlock].includes(table)) {
         console.log('slot is Free');
-        countLoopExecution++;
+        countLoopExecution+=0.5;
       }
       else if (typeof thisBooking.booked[date][hourBlock] != 'undefined' &&
                 thisBooking.booked[date][hourBlock].includes(table)) {
@@ -224,6 +223,10 @@ class Booking {
         break;
       }
     }
+    /*
+    thisBooking.hourPicker.closed = settings.hours.close;
+    console.log(thisBooking.hourPicker.closed); */
+
 
     if (!freeTable) {
       thisBooking.hoursAmount.value = thisBooking.hoursAmount.value - duration + countLoopExecution;
@@ -241,7 +244,7 @@ class Booking {
       hour: utils.numberToHour(thisBooking.hour),
       table: 0,
       repeat: false,
-      duration:thisBooking.hoursAmount.value,
+      duration: thisBooking.hoursAmount.value,
       ppl: thisBooking.peopleAmount.value,
       starters: [],
     };

@@ -2,9 +2,10 @@ import {settings, select} from '../settings.js';
 import BaseWidget from './BaseWidget.js';
 
 class AmountWidget extends BaseWidget {
-  constructor (element) {
+  constructor (element, isHourWidget) {
     super(element, settings.amountWidget.defaultValue);
     const thisWidget = this;
+    thisWidget.isHourWidget = isHourWidget;
 
     thisWidget.getElements(element);
 
@@ -32,13 +33,24 @@ class AmountWidget extends BaseWidget {
     thisWidget.dom.input.addEventListener('change', function () {
       thisWidget.setValue(thisWidget.dom.input.value);
     });
+
     thisWidget.dom.linkDecrease.addEventListener('click', function () {
       event.preventDefault();
-      thisWidget.setValue(thisWidget.value - 1);
+      if (thisWidget.isHourWidget) {
+        thisWidget.setValue(thisWidget.value - 0.5);
+
+      } else {
+        thisWidget.setValue(thisWidget.value - 1);
+      }
+
     });
     thisWidget.dom.linkIncrease.addEventListener('click', function () {
       event.preventDefault();
-      thisWidget.setValue(thisWidget.value + 1);
+      if (thisWidget.isHourWidget) {
+        thisWidget.setValue(thisWidget.value + 0.5);
+      } else {
+        thisWidget.setValue(thisWidget.value + 1);
+      }
     });
   }
 
