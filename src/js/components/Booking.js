@@ -32,7 +32,7 @@ class Booking {
         endDateParam,
       ],
     };
-    // console.log('getData params', params);
+
     const urls = {
       booking:        settings.db.url + '/' + settings.db.booking
                                       + '?' + params.booking.join('&'),
@@ -86,13 +86,15 @@ class Booking {
   }
   makeBooked (date, hour, duration, table) {
     const thisBooking = this;
-
     if (typeof thisBooking.booked[date] == 'undefined') {
       thisBooking.booked[date] = {};
     }
     const startHour = utils.hourToNumber(hour);
 
-    for (let hourBlock = startHour; parseFloat(hourBlock) < parseFloat(startHour) + duration; hourBlock += 0.5) {
+    parseFloat(hour);
+    parseFloat(duration);
+
+    for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5) {
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
         thisBooking.booked[date][hourBlock].push(table);
@@ -105,8 +107,6 @@ class Booking {
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
-    console.log(thisBooking.date);
-    console.log(thisBooking.datePicker.value);
     thisBooking.hour = thisBooking.hourPicker.value;
 
     let allAvailable = false;
@@ -207,15 +207,15 @@ class Booking {
     const thisBooking = this;
 
     let freeTable = true;
-    let availableHoursAmount = 0;
-
+    let availableHoursAmount = parseFloat(0);
     thisBooking.hourPicker.closed = settings.hours.close;
 
-    for (let hourBlock = hour; hourBlock < parseFloat(hour) + parseFloat(duration); hourBlock += 0.5) {
+    const startHour = parseFloat(hour);
+
+    for (let hourBlock = startHour; hourBlock < startHour + parseFloat(duration); hourBlock += 0.5) {
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined'
           ||
           !thisBooking.booked[date][hourBlock].includes(table)) {
-        console.log('slot is Free');
         availableHoursAmount+=0.5;
       }
       else if (typeof thisBooking.booked[date][hourBlock] != 'undefined' &&
@@ -229,7 +229,8 @@ class Booking {
     if (!freeTable) {
       thisBooking.hoursAmount.value = thisBooking.hoursAmount.value - duration + availableHoursAmount;
     } else if (parseFloat(hour) + parseFloat(duration) > parseFloat(thisBooking.hourPicker.closed)) {
-      window.alert('You can book a table only for ' + (thisBooking.hourPicker.closed - parseFloat(hour)) + ' hours');
+      window.alert('You can book a table only for ' + (thisBooking.hourPicker.closed - startHour) + ' hours');
+      thisBooking.hoursAmount.value = thisBooking.hourPicker.closed - startHour;
     } else {
       thisBooking.sendOrder();
     }
@@ -266,7 +267,6 @@ class Booking {
       },
       body: JSON.stringify(payload),
     };
-    console.log(options, url);
 
     fetch(url, options)
       .then(response => response.json())
