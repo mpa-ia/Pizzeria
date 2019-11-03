@@ -39,21 +39,29 @@ class Cart {
     thisCart.dom.productList.addEventListener('remove', function () {
       thisCart.remove(event.detail.cartProduct);
     });
-    thisCart.dom.form.addEventListener('submit', function () {
+    thisCart.dom.form.addEventListener('submit', function (event) {
+      let isFormValidate = true;
+      const popUp = document.querySelector(select.containerOf.popup);
       event.preventDefault();
       /* TO DO: Form inputs validation */
-      const regExpPhone = new RegExp ('\\d{9}');
-      const regExpAddress = new RegExp ('[A-z]+,?\\s\\d+[A-z]?(\\/\\d+[A-z]?)?');
+      const regExpPhone = new RegExp ('/\\d{9}/');
+      const regExpAddress = new RegExp ('/[A-z]+,?\\s\\d+[A-z]?(\\/\\d+[A-z]?)?/');
       if (thisCart.products.length == 0) {
-        window.alert('Choose product');
+        isFormValidate = false;
+        utils.activatePopUp(popUp, 'No product was chosen');
       } else if (regExpPhone.test(thisCart.dom.phone.value)) {
-        window.alert('Insert correct telephone number');
+        isFormValidate = false;
+        utils.activatePopUp(popUp, 'Incorrect telephone number');
       }
       else if (regExpAddress.test(thisCart.dom.address.value)) {
-        window.alert('Insert correct address');
+        isFormValidate = false;
+        utils.activatePopUp(popUp, 'Incorrect address ');
       } else {
+        utils.activatePopUp(popUp, 'The order has been accepted');
         thisCart.sendOrder();
       }
+
+      return !isFormValidate ? event.preventDefault : true;
     });
   }
   add (menuProduct) {

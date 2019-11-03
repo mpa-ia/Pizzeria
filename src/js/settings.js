@@ -11,6 +11,7 @@ export const select = {
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    popup: '.pop-up',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -92,6 +93,9 @@ export const classNames = {
   pages: {
     active: 'active',
   },
+  popup: {
+    active: 'active',
+  }
 };
 
 export const settings = {

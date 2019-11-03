@@ -1,5 +1,5 @@
 /* global Handlebars, dataSource */
-
+import {classNames} from './settings.js';
 export const utils = {};
 
 utils.createDOMFromHTML = function(htmlString) {
@@ -69,6 +69,18 @@ utils.addDays = function(dateStr, days){
   const dateObj = new Date(dateStr);
   dateObj.setDate(dateObj.getDate() + days);
   return dateObj;
+};
+
+utils.activatePopUp = function (element, message) {
+  element.classList.add(classNames.popup.active);
+  const messageBox = document.createElement('span');
+  messageBox.innerHTML = message;
+  element.appendChild(messageBox);
+  setTimeout (function () {
+    element.classList.remove(classNames.popup.active);
+    element.removeChild(messageBox);
+  }, 4000);
+
 };
 
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {

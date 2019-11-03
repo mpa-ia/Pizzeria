@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <header class="header">
     <div class="container">
       <div class="header__wrapper">
@@ -25,7 +24,9 @@
       </div>
     </div>
   </header>
-
+  <div class="pop-up">
+    <i class="fas fa-exclamation-circle"></i>
+  </div>
   <div id="pages">
     <section id="main" class="active">
       <div class="page-wrapper container">
@@ -100,50 +101,49 @@
               </a>
             </div>
           <div class="gallery">
-
-                  <div class="gallery-photo">
-                      <img src="https://s6.ifotos.pl/img/pizza-4jp_qsqanwx.jpg" alt="dish">
-                      <div class="gallery-links">
-                        <i class="fas fa-heart"></i>
-                        <i class="fas fa-share-alt"></i>
-                      </div>
-                  </div>
-                  <div class="gallery-photo">
-                      <img src="https://s6.ifotos.pl/img/pizza-5jp_qsqanwn.jpg" alt="meal">
-                      <div class="gallery-links">
-                          <i class="fas fa-heart"></i>
-                          <i class="fas fa-share-alt"></i>
-                      </div>
-                  </div>
-                  <div class="gallery-photo">
-                      <img src="https://s6.ifotos.pl/img/pizza-6jp_qsqanwe.jpg" alt="slices">
-                      <div class="gallery-links">
-                          <i class="fas fa-heart"></i>
-                          <i class="fas fa-share-alt"></i>
-                      </div>
-                  </div>
-                  <div class="gallery-photo">
-                      <img src="https://s6.ifotos.pl/img/pizza-7jp_qsqanww.jpg" alt="open">
-                      <div class="gallery-links">
-                          <i class="fas fa-heart"></i>
-                          <i class="fas fa-share-alt"></i>
-                      </div>
-                  </div>
-                  <div class="gallery-photo">
-                      <img src="https://s6.ifotos.pl/img/pizza-8jp_qsqanwa.jpg" alt="cook">
-                      <div class="gallery-links">
-                          <i class="fas fa-heart"></i>
-                          <i class="fas fa-share-alt"></i>
-                      </div>
-                  </div>
-                  <div class="gallery-photo">
-                      <img src="https://s6.ifotos.pl/img/pizza-9jp_qsqanwq.jpg" alt="door">
-                      <div class="gallery-links">
-                          <i class="fas fa-heart"></i>
-                          <i class="fas fa-share-alt"></i>
-                      </div>
-                  </div>
-                  <a href='https://www.instagram.com/?hl=pl'>View more on Instagram</a>
+            <div class="gallery-photo">
+              <img src="https://s6.ifotos.pl/img/pizza-4jp_qsqanwx.jpg" alt="dish">
+              <div class="gallery-links">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-share-alt"></i>
+              </div>
+            </div>
+            <div class="gallery-photo">
+              <img src="https://s6.ifotos.pl/img/pizza-5jp_qsqanwn.jpg" alt="meal">
+              <div class="gallery-links">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-share-alt"></i>
+              </div>
+            </div>
+            <div class="gallery-photo">
+              <img src="https://s6.ifotos.pl/img/pizza-6jp_qsqanwe.jpg" alt="slices">
+              <div class="gallery-links">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-share-alt"></i>
+              </div>
+            </div>
+            <div class="gallery-photo">
+              <img src="https://s6.ifotos.pl/img/pizza-7jp_qsqanww.jpg" alt="open">
+              <div class="gallery-links">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-share-alt"></i>
+              </div>
+            </div>
+            <div class="gallery-photo">
+              <img src="https://s6.ifotos.pl/img/pizza-8jp_qsqanwa.jpg" alt="cook">
+              <div class="gallery-links">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-share-alt"></i>
+              </div>
+            </div>
+            <div class="gallery-photo">
+              <img src="https://s6.ifotos.pl/img/pizza-9jp_qsqanwq.jpg" alt="door">
+              <div class="gallery-links">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-share-alt"></i>
+              </div>
+            </div>
+            <a href='https://www.instagram.com/?hl=pl'>View more on Instagram</a>
           </div>
         </div>
     </section>
@@ -156,7 +156,7 @@
               <i class="fas fa-shopping-cart cart__icon"></i>
             </div>
             <div class="cart__content">
-              <form class="cart__order">
+              <form class="cart__order" novalidate>
                 <ul class="cart__order-summary no-spacing">
                 </ul>
                 <ul class="cart__order-price">
@@ -230,7 +230,7 @@
   <script id="template-booking-widget" type="text/x-handlebars-template">
     <div class="booking-widget">
       <h2 class="page__title no-spacing">Book a table</h2>
-      <form class="booking-form">
+      <form class="booking-form" novalidate>
         <div class="time-picker">
           <div class="date-picker">
             <label class="booking-option-title">Pick a date</label>
