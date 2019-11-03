@@ -7,7 +7,7 @@
 }
 
 .nav-box {
-  display: flex;
+  @include flex (row, center, space-between);
   flex-wrap: wrap;
 
   > * {
@@ -17,7 +17,6 @@
   }
 
   .link-box {
-    width: 50%;
     height: 150px;
     flex: 0 0 48%;
     position: relative;
@@ -38,7 +37,6 @@
     transform: translate(-50%,-50%);
     z-index: 2;
 
-
     > * {
       color: $color-light;
       transition: $transition;
@@ -46,11 +44,10 @@
     }
 
     a {
+      @extend .h1;
       opacity: 1;
-      text-transform: uppercase;
       text-decoration: none;
       font-family: $font-header;
-      font-size: 24px;
       padding: 15px;
       bottom: 50%;
       display: inline-block;
@@ -61,7 +58,6 @@
       font-family: $font-text;
       font-size: 14px;
       bottom: 0;
-
     }
 
     &:hover > * {
@@ -75,9 +71,8 @@
 
   .open-hours {
     background: $color-main;
-    width: 100%;
     height: 150px;
-    flex: 0 0 100%;
+    flex: 0 0 98%;
     text-align: center;
 
     > p {
@@ -87,13 +82,10 @@
       margin: 0;
       padding: 8px;
       top: 50%;
-
-      &:first-of-type {
-        font-size: 36px;
-      }
+      font-size: ($base-size * 3);
 
       &:last-of-type {
-        font-size: 26px;
+        font-size: ($base-size * 2);
         font-weight: 200;
       }
     }
