@@ -95,6 +95,8 @@ export const classNames = {
   },
   popup: {
     active: 'active',
+    warning: '--warning',
+    success: '--success'
   }
 };
 

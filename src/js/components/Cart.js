@@ -48,16 +48,17 @@ class Cart {
       const regExpAddress = new RegExp ('/[A-z]+,?\\s\\d+[A-z]?(\\/\\d+[A-z]?)?/');
       if (thisCart.products.length == 0) {
         isFormValidate = false;
-        utils.activatePopUp(popUp, 'No product was chosen');
+        utils.activatePopUp(popUp, 'No product was chosen', isFormValidate);
       } else if (regExpPhone.test(thisCart.dom.phone.value)) {
         isFormValidate = false;
-        utils.activatePopUp(popUp, 'Incorrect telephone number');
+        utils.activatePopUp(popUp, 'Incorrect telephone number', isFormValidate);
       }
       else if (regExpAddress.test(thisCart.dom.address.value)) {
         isFormValidate = false;
-        utils.activatePopUp(popUp, 'Incorrect address ');
+        popUp.classList.add(classNames.popup.warning);
+        utils.activatePopUp(popUp, 'Incorrect address ', isFormValidate);
       } else {
-        utils.activatePopUp(popUp, 'The order has been accepted');
+        utils.activatePopUp(popUp, 'The order has been accepted', isFormValidate);
         thisCart.sendOrder();
       }
 

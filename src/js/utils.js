@@ -71,13 +71,20 @@ utils.addDays = function(dateStr, days){
   return dateObj;
 };
 
-utils.activatePopUp = function (element, message) {
+utils.activatePopUp = function (element, message, validated) {
   element.classList.add(classNames.popup.active);
+  if (validated) {
+    element.classList.add(classNames.popup.success);
+  } else {
+    element.classList.add(classNames.popup.warning);
+  }
   const messageBox = document.createElement('span');
   messageBox.innerHTML = message;
   element.appendChild(messageBox);
   setTimeout (function () {
     element.classList.remove(classNames.popup.active);
+    element.classList.remove(classNames.popup.success);
+    element.classList.remove(classNames.popup.warning);
     element.removeChild(messageBox);
   }, 4000);
 

@@ -103,9 +103,7 @@ input, select {
 }
 
 .pop-up {
-  background-color: lighten($color-warning, 15%);
-  border-color: lighten($color-warning, 10%);
-  color: darken($color-warning, 15%);
+
   position: absolute;
   left: 50%;
   top: 3%;
@@ -121,6 +119,16 @@ input, select {
 
   &.active {
     display: block;
+  }
+  &.--warning {
+    background-color: lighten($color-warning, 15%);
+    border-color: lighten($color-warning, 10%);
+    color: darken($color-warning, 20%);
+  }
+  &.--success {
+    background-color: lighten($color-success, 15%);
+    border-color: lighten($color-success, 10%);
+    color: darken($color-success, 20%);
   }
 
   > * {
