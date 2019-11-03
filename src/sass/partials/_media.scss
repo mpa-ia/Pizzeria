@@ -1,0 +1,12 @@
+@media(max-width: 767px) {
+
+  .cart {
+    right: $base-size * 2;
+    top: $base-size * 14;
+    width: 80%;
+
+    .fa-shopping-cart {
+      display: none;
+    }
+  }
+}
