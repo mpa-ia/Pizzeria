@@ -14,7 +14,7 @@
      font-size: 20px;
    }
 
-  .product {
+  .product, .booking-wrapper {
     padding: ($base-size * 4) ($base-size * 2);
 
     &__icon {
@@ -40,7 +40,35 @@
       img[class*="toppings-"], img[class*="ingredients-"] {
         height: 80%;
       }
-
     }
+  }
+
+  .time-picker {
+    @include flex(column, flex-start, space-between);
+  }
+
+  .hour-picker {
+    width: 100%;
+    margin-top: $base-size * 2;
+  }
+
+  .booking-options {
+    flex-wrap: wrap;
+  }
+
+  .floor-plan {
+    min-width: 70%;
+    max-width: 100%;
+    min-height: 270px;
+  }
+
+  .order-confirmation {
+    input {
+      margin: 5px;
+    }
+  }
+
+  .checkbox {
+    padding-left: ($base-size * 2);
   }
 }
