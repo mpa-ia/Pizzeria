@@ -9,4 +9,38 @@
       display: none;
     }
   }
+
+   .h1 {
+     font-size: 20px;
+   }
+
+  .product {
+    padding: ($base-size * 4) ($base-size * 2);
+
+    &__icon {
+      position: static;
+    }
+
+    &__wrapper {
+      @include flex(column-reverse, center, space-between);
+
+    }
+    &__order {
+      width: 100%;
+    }
+
+    &__images {
+      width: 250px;
+      height: 250px;
+
+      img[class^="sauce-"] {
+        height: 90%;
+      }
+
+      img[class*="toppings-"], img[class*="ingredients-"] {
+        height: 80%;
+      }
+
+    }
+  }
 }
