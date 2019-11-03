@@ -1,5 +1,8 @@
 @media(max-width: 767px) {
 
+  .page-wrapper {
+    padding: ($base-size* 2) ($base-size);
+  }
   .cart {
     right: $base-size * 2;
     top: $base-size * 14;
@@ -70,5 +73,43 @@
 
   .checkbox {
     padding-left: ($base-size * 2);
+  }
+
+  .link-box-details {
+    height: 110px;
+    a, p {
+      font-size: ($base-size);
+      padding: 5px;
+    }
+  }
+
+  .item {
+    height: 250px;
+
+    > * {
+      margin: 0;
+      height: 100%;
+      padding: 0;
+      width: 100%;
+
+    }
+
+    .carousel-picture {
+      width: 100%;
+      position: relative;
+      opacity: 0.3;
+
+    }
+
+    .carousel-caption {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      z-index: 2;
+      color: $color-dark;
+      text-shadow: 1px 1px 2px $color-dark;
+      padding: 0 8px;
+
+    }
   }
 }
