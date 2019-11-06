@@ -71,29 +71,28 @@ utils.addDays = function(dateStr, days){
   return dateObj;
 };
 
-utils.activatePopUp = function (element, message, validated) {
-  element.classList.add(classNames.popup.active);
+utils.activatePopUp = function (message, validated) {
+  const popUp = document.querySelector(select.containerOf.popup);
+  popUp.classList.add(classNames.popup.active);
   if (validated) {
-    element.classList.add(classNames.popup.success);
+    popUp.classList.add(classNames.popup.success);
   } else {
-    element.classList.add(classNames.popup.warning);
+    popUp.classList.add(classNames.popup.warning);
   }
   const messageBox = document.createElement('span');
   messageBox.innerHTML = message;
-  element.appendChild(messageBox);
+  popUp.appendChild(messageBox);
   setTimeout (function () {
-    element.classList.remove(classNames.popup.active);
-    element.classList.remove(classNames.popup.success);
-    element.classList.remove(classNames.popup.warning);
-    element.removeChild(messageBox);
+    popUp.classList.remove(classNames.popup.active);
+    popUp.classList.remove(classNames.popup.success);
+    popUp.classList.remove(classNames.popup.warning);
+    popUp.removeChild(messageBox);
   }, 4000);
 
 };
 
 utils.validateInputs = function (form) {
-  console.log(form);
   let isFormValidate = true;
-  const popUp = document.querySelector(select.containerOf.popup);
 
   const addressValue = form.querySelector('input[name=address]').value;
   const phoneValue = form.querySelector('input[name=phone]').value;
@@ -103,12 +102,12 @@ utils.validateInputs = function (form) {
 
   if (!phonePattern.test(phoneValue)) {
     isFormValidate = false;
-    utils.activatePopUp(popUp, 'Incorrect telephone number', isFormValidate);
+    utils.activatePopUp('Incorrect telephone number', isFormValidate);
   }
   else if (!addressPattern.test(addressValue)) {
     isFormValidate = false;
-    popUp.classList.add(classNames.popup.warning);
-    utils.activatePopUp(popUp, 'Incorrect address ', isFormValidate);
+    // popUp.classList.add(classNames.popup.warning);
+    utils.activatePopUp('Incorrect address ', isFormValidate);
   }
 
   return !isFormValidate ? false : true;

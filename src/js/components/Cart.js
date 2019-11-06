@@ -41,15 +41,14 @@ class Cart {
     });
     thisCart.dom.form.addEventListener('submit', function (event) {
       let isFormValidate = true;
-      const popUp = document.querySelector(select.containerOf.popup);
 
       event.preventDefault();
 
       if (thisCart.products.length == 0) {
         isFormValidate = false;
-        utils.activatePopUp(popUp, 'No product was chosen', isFormValidate);
+        utils.activatePopUp('No product was chosen', isFormValidate);
       } else if (utils.validateInputs(thisCart.dom.form)) {
-        utils.activatePopUp(popUp, 'The order has been accepted', isFormValidate);
+        utils.activatePopUp('The order has been accepted', isFormValidate);
         thisCart.sendOrder();
       }
     });
