@@ -151,6 +151,9 @@ class Booking {
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starter);
+
+    thisBooking.dom.phone = thisBooking.dom.form.querySelector(select.form.phone);
+    thisBooking.dom.address = thisBooking.dom.form.querySelector(select.form.address);
   }
   initWidgets () {
     const thisBooking = this;
@@ -185,7 +188,7 @@ class Booking {
     }
     thisBooking.dom.form.addEventListener('submit', function (event) {
       event.preventDefault();
-      const submitButton = thisBooking.dom.form.querySelector('button[type="submit"]');
+      const submitButton = thisBooking.dom.form.querySelector(select.form.formSubmit);
 
       /* Validation form */
       const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
@@ -252,6 +255,8 @@ class Booking {
     const url = settings.db.url + '/' + settings.db.booking;
 
     const payload = {
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
       date: thisBooking.date,
       hour: utils.numberToHour(thisBooking.hour),
       table: 0,
