@@ -187,22 +187,26 @@ class Booking {
       event.preventDefault();
 
       /* Validation form */
-      let tableSelected = false;
+      const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
       let tableId = 0;
-      for (let table of thisBooking.dom.tables) {
-        if (table.classList.contains(classNames.booking.tableSelected)) {
-          tableSelected = true;
-          tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
-        }
+      if (selectedTable == null) {
+        window.alert('Choose table');
+      } else {
+        tableId = parseInt(selectedTable.getAttribute(settings.booking.tableIdAttribute));
       }
 
-      if (tableSelected) {
-        thisBooking.checkIfFree(thisBooking.date, thisBooking.hour, thisBooking.hoursAmount.value, tableId);
-      } else {
-        window.alert('Choose table');
+      if (selectedTable != null
+        &&
+        thisBooking.checkIfFree(thisBooking.date, thisBooking.hour, thisBooking.hoursAmount.value, tableId)
+        &&
+        utils.validateInputs(thisBooking.dom.form)
+      )
+      {
+        thisBooking.sendOrder();
       }
     });
   }
+
   checkIfFree (date, hour, duration, table) {
     const thisBooking = this;
 
@@ -231,11 +235,14 @@ class Booking {
     } else if (parseFloat(hour) + parseFloat(duration) > parseFloat(thisBooking.hourPicker.closed)) {
       window.alert('You can book a table only for ' + (thisBooking.hourPicker.closed - startHour) + ' hours');
       thisBooking.hoursAmount.value = thisBooking.hourPicker.closed - startHour;
-    } else {
-      thisBooking.sendOrder();
+
+      // to finally return false anyway
+      freeTable = false;
     }
 
+    return !freeTable ? false : true;
   }
+
   sendOrder () {
     const thisBooking = this;
 
