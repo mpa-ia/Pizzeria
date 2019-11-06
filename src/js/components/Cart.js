@@ -41,6 +41,7 @@ class Cart {
     });
     thisCart.dom.form.addEventListener('submit', function (event) {
       let isFormValidate = true;
+      const submitButton = thisCart.dom.form.querySelector('button[type="submit"]');
 
       event.preventDefault();
 
@@ -51,6 +52,7 @@ class Cart {
         utils.activatePopUp('The order has been accepted', isFormValidate);
         thisCart.sendOrder();
       }
+      utils.preventSubmit(submitButton);
     });
   }
   add (menuProduct) {

@@ -88,7 +88,6 @@ utils.activatePopUp = function (message, validated) {
     popUp.classList.remove(classNames.popup.warning);
     popUp.removeChild(messageBox);
   }, 4000);
-
 };
 
 utils.validateInputs = function (form) {
@@ -106,11 +105,17 @@ utils.validateInputs = function (form) {
   }
   else if (!addressPattern.test(addressValue)) {
     isFormValidate = false;
-    // popUp.classList.add(classNames.popup.warning);
     utils.activatePopUp('Incorrect address ', isFormValidate);
   }
 
   return !isFormValidate ? false : true;
+};
+
+utils.preventSubmit = function (button) {
+  button.disabled = true;
+  setTimeout(function () {
+    button.disabled = false;
+  }, 4000);
 };
 
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {

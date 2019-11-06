@@ -185,6 +185,7 @@ class Booking {
     }
     thisBooking.dom.form.addEventListener('submit', function (event) {
       event.preventDefault();
+      const submitButton = thisBooking.dom.form.querySelector('button[type="submit"]');
 
       /* Validation form */
       const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
@@ -204,6 +205,8 @@ class Booking {
       {
         thisBooking.sendOrder();
       }
+
+      utils.preventSubmit(submitButton);
     });
   }
 
