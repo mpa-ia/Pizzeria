@@ -69,6 +69,11 @@ export const select = {
     starter: '[name="starter"]',
     tableSelected: '.selected',
   },
+  form: {
+    phone: '[name="phone"]',
+    address: '[name="address"]',
+    formSubmit: 'button[type="submit"]',
+  },
   nav: {
     links: '.link-box a',
   },

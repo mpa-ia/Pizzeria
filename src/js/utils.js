@@ -93,8 +93,8 @@ utils.activatePopUp = function (message, validated) {
 utils.validateInputs = function (form) {
   let isFormValidate = true;
 
-  const addressValue = form.querySelector('input[name=address]').value;
-  const phoneValue = form.querySelector('input[name=phone]').value;
+  const addressValue = form.querySelector(select.form.address).value;
+  const phoneValue = form.querySelector(select.form.phone).value;
 
   const phonePattern = /^[0-9]{9}$/;
   const addressPattern = /^([^\\u0000-\u007F]|\w)+,?\s\d+[A-z]?(\/\d+[A-z]?)?$/;
