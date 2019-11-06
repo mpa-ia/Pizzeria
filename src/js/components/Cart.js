@@ -42,27 +42,16 @@ class Cart {
     thisCart.dom.form.addEventListener('submit', function (event) {
       let isFormValidate = true;
       const popUp = document.querySelector(select.containerOf.popup);
+
       event.preventDefault();
-      /* TO DO: Form inputs validation */
-      const regExpPhone = new RegExp ('/\\d{9}/');
-      const regExpAddress = new RegExp ('/[A-z]+,?\\s\\d+[A-z]?(\\/\\d+[A-z]?)?/');
+
       if (thisCart.products.length == 0) {
         isFormValidate = false;
         utils.activatePopUp(popUp, 'No product was chosen', isFormValidate);
-      } else if (regExpPhone.test(thisCart.dom.phone.value)) {
-        isFormValidate = false;
-        utils.activatePopUp(popUp, 'Incorrect telephone number', isFormValidate);
-      }
-      else if (regExpAddress.test(thisCart.dom.address.value)) {
-        isFormValidate = false;
-        popUp.classList.add(classNames.popup.warning);
-        utils.activatePopUp(popUp, 'Incorrect address ', isFormValidate);
-      } else {
+      } else if (utils.validateInputs(thisCart.dom.form)) {
         utils.activatePopUp(popUp, 'The order has been accepted', isFormValidate);
         thisCart.sendOrder();
       }
-
-      return !isFormValidate ? event.preventDefault : true;
     });
   }
   add (menuProduct) {

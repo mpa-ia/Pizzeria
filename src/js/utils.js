@@ -1,5 +1,5 @@
 /* global Handlebars, dataSource */
-import {classNames} from './settings.js';
+import {select, classNames} from './settings.js';
 export const utils = {};
 
 utils.createDOMFromHTML = function(htmlString) {
@@ -88,6 +88,30 @@ utils.activatePopUp = function (element, message, validated) {
     element.removeChild(messageBox);
   }, 4000);
 
+};
+
+utils.validateInputs = function (form) {
+  console.log(form);
+  let isFormValidate = true;
+  const popUp = document.querySelector(select.containerOf.popup);
+
+  const addressValue = form.querySelector('input[name=address]').value;
+  const phoneValue = form.querySelector('input[name=phone]').value;
+
+  const phonePattern = /^[0-9]{9}$/;
+  const addressPattern = /^([^\\u0000-\u007F]|\w)+,?\s\d+[A-z]?(\/\d+[A-z]?)?$/;
+
+  if (!phonePattern.test(phoneValue)) {
+    isFormValidate = false;
+    utils.activatePopUp(popUp, 'Incorrect telephone number', isFormValidate);
+  }
+  else if (!addressPattern.test(addressValue)) {
+    isFormValidate = false;
+    popUp.classList.add(classNames.popup.warning);
+    utils.activatePopUp(popUp, 'Incorrect address ', isFormValidate);
+  }
+
+  return !isFormValidate ? false : true;
 };
 
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
