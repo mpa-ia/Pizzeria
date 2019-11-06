@@ -103,8 +103,8 @@ input, select {
 }
 
 .pop-up {
-
-  position: absolute;
+  overflow: auto;
+  position: fixed;
   left: 50%;
   top: 3%;
   transform: translate(-50%, -3%);
@@ -120,11 +120,13 @@ input, select {
   &.active {
     display: block;
   }
+
   &.--warning {
     background-color: lighten($color-warning, 15%);
     border-color: lighten($color-warning, 10%);
     color: darken($color-warning, 20%);
   }
+
   &.--success {
     background-color: lighten($color-success, 15%);
     border-color: lighten($color-success, 10%);
