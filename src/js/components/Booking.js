@@ -190,7 +190,7 @@ class Booking {
       const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
       let tableId = 0;
       if (selectedTable == null) {
-        window.alert('Choose table');
+        utils.activatePopUp('Choose table', false);
       } else {
         tableId = parseInt(selectedTable.getAttribute(settings.booking.tableIdAttribute));
       }
@@ -281,6 +281,7 @@ class Booking {
         console.log('parsedResponse: ', parsedResponse);
       });
     thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+    utils.activatePopUp('Selected table was booked', true);
   }
 
 }
