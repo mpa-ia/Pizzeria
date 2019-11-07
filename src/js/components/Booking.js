@@ -251,12 +251,15 @@ class Booking {
 
     const url = settings.db.url + '/' + settings.db.booking;
 
+    const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
+    const tableId = selectedTable.getAttribute(settings.booking.tableIdAttribute);
+
     const payload = {
       phone: thisBooking.dom.phone.value,
       address: thisBooking.dom.address.value,
       date: thisBooking.date,
       hour: utils.numberToHour(thisBooking.hour),
-      table: 0,
+      table: tableId,
       repeat: false,
       duration: thisBooking.hoursAmount.value,
       ppl: thisBooking.peopleAmount.value,
@@ -267,11 +270,7 @@ class Booking {
         payload.starters.push(starter.value);
       }
     }
-    const selectedTable = thisBooking.dom.wrapper.querySelector(select.booking.tableSelected);
-    const tableId = selectedTable.getAttribute(settings.booking.tableIdAttribute);
-    payload.table = parseInt(tableId);
 
-    console.log(payload);
     const options = {
       method: 'POST',
       headers: {
