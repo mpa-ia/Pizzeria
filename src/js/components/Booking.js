@@ -286,6 +286,7 @@ class Booking {
       });
     thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
     utils.activatePopUp('Selected table was booked', true);
+    selectedTable.classList.remove(classNames.booking.tableSelected);
     thisBooking.clearForm();
   }
   clearForm () {
