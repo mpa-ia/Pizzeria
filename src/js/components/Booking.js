@@ -286,7 +286,22 @@ class Booking {
       });
     thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
     utils.activatePopUp('Selected table was booked', true);
+    thisBooking.clearForm();
   }
+  clearForm () {
+    const thisBooking = this;
 
+    thisBooking.peopleAmount.value = 1;
+    thisBooking.hoursAmount.value = 1;
+
+    for (let starter of thisBooking.dom.starters) {
+      if (starter.checked==true){
+        starter.checked = false;
+      }
+    }
+    thisBooking.dom.starters = [];
+    thisBooking.dom.phone.value = '';
+    thisBooking.dom.address.value = '';
+  }
 }
 export default Booking;
