@@ -24,8 +24,8 @@ class Cart {
       thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
     }
     thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
-    thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
-    thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
+    thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.form.phone);
+    thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.form.address);
 
   }
   initActions () {
@@ -41,7 +41,7 @@ class Cart {
     });
     thisCart.dom.form.addEventListener('submit', function (event) {
       let isFormValidate = true;
-      const submitButton = thisCart.dom.form.querySelector('button[type="submit"]');
+      const submitButton = thisCart.dom.form.querySelector(select.form.formSubmit);
 
       event.preventDefault();
 
